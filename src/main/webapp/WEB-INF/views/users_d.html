@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 5px;
+            border: 1px solid black;
+        }
+
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<table border="1" cellpadding="5"
+       style="border-collapse: collapse; border: 1px solid black;">
+    <thead>
+    <tr>
+<!--        <th>ID</th>-->
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+<!--        <td th:utext="${user.id}"></td>-->
+        <td th:utext="${user.name}"></td>
+        <td th:utext="${user.age}"></td>
+        <td><button><a th:href="@{/users/edit(id=${user.id})}">Edit</a></button></td>
+        <td><form th:method="POST" th:action="@{/users/delete(id=${user.getId()})}" th:object="${user}" th:onsubmit="return confirm('Вы уверены?')">
+            <button type="submit">Delete</button>
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+
+<button><a href="users/new">Add</a></button>
+
+</body>
+</html>
